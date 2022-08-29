@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { deleteDeck, listDecks } from "../utils/api";
 
 function DeckList() {
   const [decks, setDecks] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const abortController = new AbortController();
     async function loadDecks() {
       try {
-        const response = await fetch(
-          "http://localhost:8080/decks?_embed=cards",
-          { signal: abortController.signal }
-        );
-        const decksFromAPI = await response.json();
-        setDecks(decksFromAPI);
+        const response = await listDecks(abortController.signal);
+        setDecks(response);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("Aborted");
@@ -23,7 +21,21 @@ function DeckList() {
       }
     }
     loadDecks();
+    return () => abortController.abort();
   }, []);
+
+  const deleteDeckHandler = async (deckId) => {
+    if (
+      window.confirm(
+        "Delete this deck? \n\nYou will not be able to recover it."
+      )
+    ) {
+      await deleteDeck(deckId);
+      history.go(0);
+    } else {
+      history.pushState("/");
+    }
+  };
 
   //have another const that is the card and how it looks like
 
@@ -41,9 +53,12 @@ function DeckList() {
         <Link to={`/decks/${deck.id}/study`} className="btn btn-primary">
           Study
         </Link>
-        <Link to="#" className="btn btn-danger">
+        <button
+          className="btn btn-danger"
+          onClick={() => deleteDeckHandler(deck.id)}
+        >
           Delete
-        </Link>
+        </button>
       </div>
     </div>
   ));

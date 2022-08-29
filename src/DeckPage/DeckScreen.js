@@ -1,37 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { readDeck } from "../utils/api";
+import { useParams, Link, useHistory } from "react-router-dom";
+import { readDeck, deleteCard, deleteDeck } from "../utils/api";
 import "./style.css";
 
 function DeckScreen() {
-  //take the parameters out of the URL that we are on
   const { deckId } = useParams();
-  //declare deck outside useEffect
   const [deck, setDeck] = useState({});
-  //cardsList willhold JUST the card information after async call
   const [cardsList, setCardsList] = useState([]);
-  //cardId is used to match with card.id to render only 1 card at a time
-  // const [cardIndex, setCardIndex] = useState(0);
+  const history = useHistory();
 
   useEffect(() => {
+    const abortController = new AbortController();
     async function fetchData() {
       try {
-        const abortController = new AbortController();
         const deckResponse = await readDeck(deckId, abortController.signal);
-        console.log("deckResponse from DeckScreen", deckResponse);
         setDeck(deckResponse);
         setCardsList(deckResponse.cards);
       } catch (error) {
-        console.error("Unable to retrieve deck " + deckId, error);
+        if (error.name === "AbortError") {
+          console.log("Aborted");
+        } else {
+          throw error;
+        }
       }
     }
     fetchData();
+    return () => abortController.abort();
   }, [deckId]);
-  console.log("cardsList from Deck Screen", cardsList);
 
-  //map through cardslist
-  //for each card, return a card with front on left andback on right with 2 buttons
-  //return this with template literals
+  const deleteCardHandler = async (cardId) => {
+    if (
+      window.confirm(
+        "Delete this card? \n\nYou will not be able to recover it."
+      )
+    ) {
+      await deleteCard(cardId);
+      history.go(0);
+    } else {
+      history.push(`/decks/${deckId}`);
+    }
+  };
+
+  const deleteDeckHandler = async (deckId) => {
+    if (
+      window.confirm(
+        "Delete this deck? \n\nYou will not be able to recover it."
+      )
+    ) {
+      await deleteDeck(deckId);
+      history.push(`/`);
+    } else {
+      history.push(`/decks/${deckId}`);
+    }
+  };
+
   const deckView = cardsList.map((card) => (
     <div className="row">
       <div className="column-front">
@@ -47,13 +69,17 @@ function DeckScreen() {
         >
           Edit
         </Link>
-        <button type="button" className="btn btn-danger">
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => deleteCardHandler(card.id)}
+        >
           Delete
         </button>
       </div>
     </div>
   ));
-
+  console.log("deck", deck);
   return (
     <React.Fragment>
       <div className="content">
@@ -63,7 +89,7 @@ function DeckScreen() {
               <Link to="/">Home</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              React Router
+              {`${deck.name}`}
             </li>
           </ol>
         </nav>
@@ -94,9 +120,13 @@ function DeckScreen() {
           >
             +Add Cards
           </Link>
-          <Link to="" type="button" className="btn btn-danger" role="button">
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => deleteDeckHandler(deckId)}
+          >
             Delete
-          </Link>
+          </button>
         </div>
 
         <h1>Cards</h1>
