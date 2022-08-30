@@ -3,10 +3,10 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
 import CreateDeck from "../CreateNewDeck/CreateDeck";
 import NotFound from "./NotFound";
-import HomeScreen from "../HomePage/HomeScreen";
-import StudyScreen from "../StudyPage/StudyScreen";
-import DeckScreen from "../DeckPage/DeckScreen";
-import CreateCard from "../CreateNewCard/CreateCard";
+import HomeScreen from "../Deck/HomeScreen";
+import StudyScreen from "../Deck/StudyScreen";
+import DeckScreen from "../Deck/DeckScreen";
+import CreateCard from "../Card/CreateCard";
 
 function Layout() {
   return (
