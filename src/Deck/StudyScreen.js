@@ -36,7 +36,7 @@ function StudyScreen() {
   }, [deckId]);
   const notEnoughCardsMessage = (
     <div>
-      <h2>{deckName}: Study</h2>
+      <h1>{deckName}</h1>
       <h2>Not enough cards.</h2>
       <p>
         You need at least 3 cards to study. There are {cardsList.length} cards
@@ -73,7 +73,7 @@ function StudyScreen() {
   };
 
   const oneCardView = (
-    <React.Fragment>
+    <div>
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -91,7 +91,7 @@ function StudyScreen() {
       <div className="card">
         <div className="card-body">
           <h3 className="card-title">
-            {cardIndex + 1} of {cardsList.length}
+            Card {cardIndex + 1} of {cardsList.length}
           </h3>
           <p className="card-text"></p>
           <div>
@@ -123,21 +123,14 @@ function StudyScreen() {
           ) : null}
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 
   return (
-    <div>{cardsList.length > 2 ? oneCardView : notEnoughCardsMessage}</div>
+    <React.Fragment>
+      {cardsList.length > 2 ? oneCardView : notEnoughCardsMessage}
+    </React.Fragment>
   );
 }
-
-// There is a breadcrumb navigation bar with links to home /, followed by the name of the deck being studied, and finally the text Study (e.g., Home/Rendering In React/Study).
-// The deck title (i.e., "Study: Rendering in React" ) is shown on the screen.
-// Cards are shown one at a time, front-side first.
-// A button at the bottom of each card "flips" it to the other side.
-// After flipping the card, the screen shows a Next button (see the Next button section below) to continue to the next card.
-// After the final card in the deck has been shown, a message (see the Restart prompt section below) is shown offering the user the opportunity to restart the deck.
-// If the user does not restart the deck, they should return to the home screen.
-// Studying a deck with two or fewer cards should display a "Not enough cards" message (see the "Not enough cards" section below) and a button to add cards to the deck
 
 export default StudyScreen;

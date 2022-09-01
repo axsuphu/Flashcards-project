@@ -14,7 +14,6 @@ function CreateCard() {
   const [newCardFormData, setNewCardFormData] = useState({
     ...initialFormState,
   });
-  console.log(newCardFormData);
 
   const handleFormChange = ({ target }) => {
     setNewCardFormData({ ...newCardFormData, [target.name]: target.value });
@@ -23,7 +22,6 @@ function CreateCard() {
   useEffect(() => {
     async function loadDeckInfo() {
       const response = await readDeck(deckId);
-      console.log(response);
       setDeckName(response.name);
     }
     loadDeckInfo();

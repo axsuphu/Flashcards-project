@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { readDeck, deleteCard, deleteDeck } from "../utils/api";
-import "./style.css";
 
 function DeckScreen() {
   const { deckId } = useParams();
@@ -53,7 +52,6 @@ function DeckScreen() {
       history.push(`/decks/${deckId}`);
     }
   };
-  console.log("cardsList", cardsList);
 
   const deckView = cardsList.map((card) => (
     <div className="row">
@@ -80,7 +78,7 @@ function DeckScreen() {
       </div>
     </div>
   ));
-  console.log("deck from DeckScreen", deck);
+
   return (
     <React.Fragment>
       <div className="content">

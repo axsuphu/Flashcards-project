@@ -13,11 +13,7 @@ function DeckList() {
         const response = await listDecks(abortController.signal);
         setDecks(response);
       } catch (error) {
-        if (error.name === "AbortError") {
-          console.log("Aborted");
-        } else {
-          throw error;
-        }
+        console.log(error.message);
       }
     }
     loadDecks();
@@ -63,7 +59,7 @@ function DeckList() {
     </div>
   ));
   //return that const in a div or react frag
-  return <div>{deckInformation}</div>;
+  return <React.Fragment>{deckInformation}</React.Fragment>;
 }
 
 export default DeckList;

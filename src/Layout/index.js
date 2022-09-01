@@ -19,6 +19,10 @@ function Layout() {
         <Route exact={true} path="/">
           <HomeScreen />
         </Route>
+        {/*Create Deck Screen */}
+        <Route path="/decks/new">
+          <CreateDeck />
+        </Route>
         {/*Study Screen */}
         <Route exact={true} path="/decks/:deckId/study">
           <StudyScreen />
@@ -38,10 +42,7 @@ function Layout() {
         <Route exact={true} path="/decks/:deckId">
           <DeckScreen />
         </Route>
-        {/*Create Deck Screen */}
-        <Route path="/decks/new">
-          <CreateDeck />
-        </Route>
+
         {/*Not Found Screen*/}
         <Route>
           <NotFound />

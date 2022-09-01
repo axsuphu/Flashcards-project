@@ -41,12 +41,9 @@ function EditCard() {
       [target.name]: target.value,
     });
   };
-  console.log(editCardFormData);
-  console.log(cardId);
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    console.log(editCardFormData);
     await updateCard(editCardFormData);
     history.push(`/decks/${deckId}`);
   };
@@ -58,7 +55,7 @@ function EditCard() {
           <li className="breadcrumb-item">
             <Link to="/">Home</Link>
           </li>
-          <li className="breadcrumb-item">{`Deck ${deckInfo.name}`}</li>
+          <li className="breadcrumb-item">{deckInfo.name}</li>
           <li className="breadcrumb-item active" aria-current="page">
             {`Edit Card ${cardId}`}
           </li>
@@ -77,7 +74,8 @@ function EditCard() {
             name="front"
             placeholder={cardInfo.front}
             onChange={handleFormChange}
-          ></textarea>
+            value={cardInfo.front}
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="backSideOfCard" className="form-label">
@@ -90,11 +88,12 @@ function EditCard() {
             name="back"
             placeholder={cardInfo.back}
             onChange={handleFormChange}
-          ></textarea>
+            value={cardInfo.back}
+          />
         </div>
-        <button type="button" className="btn btn-secondary">
+        <Link to={`/decks/${deckId}`} className="btn btn-secondary">
           Cancel
-        </button>
+        </Link>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
