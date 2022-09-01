@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-
-// import React, { useEffect, useState } from "react";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { readCard, readDeck, updateCard } from "../utils/api";
+import CardContentForm from "./CardContentForm";
 
 function EditCard() {
   const params = useParams();
@@ -48,6 +47,10 @@ function EditCard() {
     history.push(`/decks/${deckId}`);
   };
 
+  const doneButtonHandler = () => {
+    history.push(`/decks/${deckId}`);
+  };
+
   return (
     <React.Fragment>
       <nav aria-label="breadcrumb">
@@ -61,43 +64,16 @@ function EditCard() {
           </li>
         </ol>
       </nav>
-      <form onSubmit={submitHandler}>
-        <h1>Edit Card</h1>
-        <div className="mb-3">
-          <label htmlFor="frontSideOfCard" className="form-label">
-            Front
-          </label>
-          <textarea
-            type="text"
-            className="form-control"
-            id="editCard"
-            name="front"
-            placeholder={cardInfo.front}
-            onChange={handleFormChange}
-            value={cardInfo.front}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="backSideOfCard" className="form-label">
-            Back
-          </label>
-          <textarea
-            type="text"
-            className="form-control"
-            id="editCard"
-            name="back"
-            placeholder={cardInfo.back}
-            onChange={handleFormChange}
-            value={cardInfo.back}
-          />
-        </div>
-        <Link to={`/decks/${deckId}`} className="btn btn-secondary">
-          Cancel
-        </Link>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
+      <CardContentForm
+        title="Edit Card"
+        handleFormChange={handleFormChange}
+        frontValue={editCardFormData.front}
+        backValue={editCardFormData.back}
+        submitHandler={submitHandler}
+        doneButtonHandler={doneButtonHandler}
+        secondary="Cancel"
+        primary="Submit"
+      />
     </React.Fragment>
   );
 }

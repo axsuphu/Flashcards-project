@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { createCard, readDeck } from "../utils/api";
+import CardContentForm from "./CardContentForm";
 
 function CreateCard() {
   const history = useHistory();
@@ -51,47 +52,18 @@ function CreateCard() {
           </li>
         </ol>
       </nav>
-      <form onSubmit={submitHandler}>
-        <h4>{`${deckName}: Add Card`}</h4>
-        <div className="mb-3">
-          <label htmlFor="frontSideOfCard" className="form-label">
-            Front
-          </label>
-          <textarea
-            type="text"
-            className="form-control"
-            id="deckDescription"
-            name="front"
-            placeholder="Front Side of card"
-            onChange={handleFormChange}
-            value={newCardFormData.front}
-          ></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="deckDescription" className="form-label">
-            Back
-          </label>
-          <textarea
-            type="text"
-            className="form-control"
-            id="deckDescription"
-            name="back"
-            placeholder="Back Side of card"
-            onChange={handleFormChange}
-            value={newCardFormData.back}
-          ></textarea>
-        </div>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={doneButtonHandler}
-        >
-          Done
-        </button>
-        <button type="submit" className="btn btn-primary">
-          Save
-        </button>
-      </form>
+      <CardContentForm
+        title={`${deckName}: Add Card`}
+        frontSidePlaceholder="Front Side of card"
+        backSidePlaceholder="Back Side of card"
+        handleFormChange={handleFormChange}
+        frontValue={newCardFormData.front}
+        backValue={newCardFormData.back}
+        submitHandler={submitHandler}
+        doneButtonHandler={doneButtonHandler}
+        secondary="Done"
+        primary="Save"
+      />
     </React.Fragment>
   );
 }
