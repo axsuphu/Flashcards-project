@@ -2,7 +2,7 @@
   "decks": [
     {
       "name": "React Router",
-      "description": "React Router is a collection of navigational components that compose declaratively with your application.",
+      "description": "React Router is a collection of navigational components that compose declaratively with your application and more. ",
       "id": 2
     },
     {
@@ -19,22 +19,71 @@
       "id": 5
     },
     {
-      "front": "Polar bear",
-      "back": "Lives in the Arctic Circle",
-      "deckId": 3,
-      "id": 6
+      "front": "Grizzly Bear",
+      "id": 6,
+      "back": "Lives in the forest"
     },
     {
-      "front": "Lion",
-      "back": "Lives in Africa",
-      "deckId": 3,
+      "front": "L",
       "id": 7
     },
     {
-      "front": "Whale",
-      "back": "Lives in the ocean",
+      "front": "Penguin",
+      "id": 8,
+      "back": "p"
+    },
+    {
+      "front": "Grizzly",
+      "id": 9,
+      "back": "Forest"
+    },
+    {
+      "front": "Pen",
+      "id": 10,
+      "back": "stuff"
+    },
+    {
+      "front": "Pen",
+      "id": 11,
+      "back": "B"
+    },
+    {
+      "front": "P",
+      "id": 12,
+      "deckId": "3",
+      "back": "B"
+    },
+    {
+      "id": 13,
+      "front": "Snake",
+      "back": "Snek"
+    },
+    {
+      "back": "p",
+      "front": "p",
+      "deckId": "3",
+      "id": 14
+    },
+    {
+      "back": "p",
+      "front": "e",
+      "id": 15
+    },
+    {
+      "front": "dog",
+      "back": "cat",
+      "id": 16
+    },
+    {
+      "front": "pig",
+      "back": "piggy",
+      "id": 17
+    },
+    {
+      "front": "bear",
+      "back": "lion",
       "deckId": 3,
-      "id": 8
+      "id": 18
     }
   ]
 }

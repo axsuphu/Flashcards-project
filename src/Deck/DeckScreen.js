@@ -53,6 +53,7 @@ function DeckScreen() {
       history.push(`/decks/${deckId}`);
     }
   };
+  console.log("cardsList", cardsList);
 
   const deckView = cardsList.map((card) => (
     <div className="row">
@@ -79,7 +80,7 @@ function DeckScreen() {
       </div>
     </div>
   ));
-  console.log("deck", deck);
+  console.log("deck from DeckScreen", deck);
   return (
     <React.Fragment>
       <div className="content">
